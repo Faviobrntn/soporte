@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block buscador %}
+
+{% if var %}
+<script type="text/javascript">
+	alert("Usuario Incorrecto");
+</script>
+{% endif %}
+{% if var1 %}
+<script type="text/javascript">
+	alert("Ha ocurrido un error");
+</script>
+{% endif %}
+<div class="jumbotron">
+	<div class="container">
+		<h1 class="display-3">{% block title %}Ingresar{% endblock %}</h1>
+		<form method="post" action="index">
+			<div class="form-group">
+				<label for="username">Usuario</label>
+				<input type="text" name="usuario" class="form-control form-control-lg" id="username" placeholder="Usuario">
+			</div>
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" name="contraseña" class="form-control form-control-lg" id="password" placeholder="Password">
+			</div>
+			<div class="form-group form-check">
+				<input type="checkbox" class="form-check-input" id="exampleCheck1">
+				<label class="form-check-label" for="exampleCheck1">Recordarme</label>
+			</div>
+
+			<button type="submit" class="btn btn-primary btn-lg float-right">Iniciar Sesion</button>
+		</form>
+	</div>
+</div>
+{% endblock %}
+
+{% block content %} {% endblock %}

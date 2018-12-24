@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+  <h1>{% block title %}Populares{% endblock %}</h1>
+
+    <div class="row">
+    {% for peli in peliculas %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <!-- <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap"> -->
+                <img class="card-img-top" src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{peli['poster_path']}}" alt="Card image cap">
+                <div class="card-body">
+                    <h3>{{ peli['title'] }}</h3>
+                    <p class="card-text">{{ peli['overview'][:50] }}..</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a href="{{ url_for('pagina.detalles', id=peli['id'], tipo='peliculas') }}" class="btn btn-sm btn-outline-secondary" >Ver</a>
+                            <!-- <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->
+                        </div>
+                        <small class="text-muted">{{ peli['release_date'] }}</small>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        {% if not loop.last %} {% endif %}
+    {% endfor %}
+    
+    </div>
+{% endblock %}

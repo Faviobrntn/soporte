@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+  <h1>{% block title %}Descubrir{% endblock %}</h1>
+
+    <div class="row">
+    {% for show in shows %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <!-- <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap"> -->
+                <img class="card-img-top" src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{show['poster']}}" alt="Card image cap">
+                <div class="card-body">
+                    <h3>{{ show['title'] }}</h3>
+                    <p class="card-text">{{ show['overview'][:50] }}..</p>
+                    <a href="{{ url_for('detalles', id=show.idShow, tipo=show.tipo) }}" class="btn btn-block btn-outline-secondary">Ver</a>
+                </div>
+                {% if g.user %}
+                <div class="card-footer text-muted">
+                    <form action="formAgregarShow" method="post">
+                        <input name="tipo" type="hidden" id="tipo" value="{{show.tipo}}">
+                        <input name="idShow" type="hidden" id="id" value="{{show.idShow}}">
+                        <button type="submit" class="btn btn-block btn-outline-info">
+                            <i class="fa fa-plus"></i> Agregar
+                        </button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div> 
+        {% if not loop.last %} {% endif %}
+    {% endfor %}
+    
+    </div>
+{% endblock %}

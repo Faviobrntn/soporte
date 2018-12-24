@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <h1>{% block title %}Mis Favoritos{% endblock %}</h1>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">user_id</th>
+                <th scope="col">pelicula_id</th>
+                <th scope="col">acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fav in favoritos %}
+            <tr>
+                <th scope="row">{{ fav['id'] }}</th>
+                <td>{{ fav['user_id'] }}</td>
+                <td>{{ fav['pelicula_id'] }}</td>
+                <td>
+                    <form action="{{ url_for('auth.quitarFavorito', id=fav['id']) }}" method="post">
+                        <!-- <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');"> -->
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Estas seguro?');"><i class="fas fa-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+                {% if not loop.last %} {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,81 @@
+<!-- 
+{% if cantidad>0 %}
+<div class="tablaDiv">
+    <table class="tabla">
+        <tr>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Puntuacion</th>
+            <th>Poster</th>
+            <th></th>
+        </tr>
+    {% for show in shows %}
+        <tr>
+            <td>{{show.nombre}}</td>
+            <td><span translate="yes">{{show.overview}}</span></td>
+            <td>{{show.puntuacionIMDB}}</td>
+            <td><img class="poster" src="http://image.tmdb.org/t/p/w185//{{show.poster}}"></td>
+            <td><form id="formShow" action="formAgregarShow" method="post">
+                <input name="tipo" type="text" id="tipo" value="{{show.tipo}}" style="visibility:hidden">
+                <input name="idShow" type="text" id="id" value="{{show.idShow}}" style="visibility:hidden">
+                <input class="agregarBoton" type="submit" id="submit" name="submit" value="Agregar" class="boton">
+            </form></td>
+        </tr>
+     {% endfor %}
+    </table>
+
+    <div class="botones" ><a id="Volver" href="/bienvenido.html">Volver</a></div>
+</div>
+{% else %}
+<div class="noresults">
+    <h2>No se encontraron resultados</h2>
+<a id="vuelta" href="/">Volver</a>
+</div>
+{% endif %}
+
+ -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %}Resultados de la busqueda{% endblock %}</h1>
+    <br>
+
+    {% for show in shows %}
+    <article class="post">
+        <header>
+            <div class="row">
+                <div class="col-sm-2">
+                    <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{show['poster']}}" width="100" height="100">
+                </div>
+                <div class="col-sm-8">
+                    <a class="action" href="{{ url_for('detalles', id=show.idShow, tipo=show.tipo) }}">
+                        <h1>{{ show['nombre'] }}</h1>
+                    </a>
+                    <div class="about">Puntuacion {{show.puntuacionIMDB}} {{ show['release_date'] }}</div>
+                </div>
+                <div class="col-sm-2">
+                    {% if g.user %}
+                    <!-- <a class="btn-favorito" data-id="{{show['id']}}" href="#">
+                        <i class="fa fa-plus"></i>
+                        Agregar
+                    </a> -->
+                    <form id="formShow" action="formAgregarShow" method="post">
+                        <input name="tipo" type="hidden" id="tipo" value="{{show.tipo}}">
+                        <input name="idShow" type="hidden" id="id" value="{{show.idShow}}">
+                        <button type="submit" id="submit" name="submit" value="Agregar" class="btn btn-outline-info">
+                            <i class="fa fa-plus"></i> Agregar
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+        <p class="body">{{ show['overview'] }}</p>
+    </article>
+    {% if not loop.last %}
+    <hr>
+    {% endif %}
+    {% endfor %}
+    
+{% endblock %}

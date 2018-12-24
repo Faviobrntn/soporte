@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ 
+    <h1>{% block title %}Resultados de la busqueda{% endblock %}</h1>
+    <br>
+
+    {% for res in resultados %}
+    <article class="post">
+        <header>
+            <div class="row">
+                <div class="col-sm-1">
+                    <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{res['poster_path']}}" width="50" height="50">
+                </div>
+                <div class="col-sm-9">
+                    <a class="action" href="{{ url_for('pagina.detalles', id=res['id'], tipo=request.form['tipo']) }}">
+                        <h1>{{ res['title'] }}</h1>
+                    </a>
+                    <div class="about">by {{ res['release_date'] }}</div>
+                </div>
+                <div class="col-sm-2">
+                    {% if g.user %}
+                    <a class="btn-favorito" data-id="{{res['id']}}" href="#">
+                        <i class="far fa-heart"></i>
+                        Favorito
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+        <p class="body">{{ res['overview'] }}</p>
+    </article>
+    {% if not loop.last %}
+    <hr>
+    {% endif %}
+    {% endfor %}
+    
+{% endblock %}

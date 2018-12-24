@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block buscador %}
+<div class="jumbotron">
+	<div class="container">
+		<h1 class="display-3">{% block title %}Registro{% endblock %}</h1>
+		<form method="post" action="altaPersona">
+			<div class="form-group">
+				<label for="nombre">Nombre</label>
+				<input type="text" name="nombre" class="form-control form-control-lg" id="nombre" placeholder="Nombre">
+			</div>
+			<div class="form-group">
+				<label for="apellido">Apellido</label>
+				<input type="text" name="apellido" class="form-control form-control-lg" id="apellido" placeholder="Apellido">
+			</div>
+			<div class="form-group">
+				<label for="dni">DNI</label>
+				<input type="dni" name="dni" class="form-control form-control-lg" id="dni" placeholder="DNI">
+			</div>
+			<div class="form-group">
+				<label for="username">Usuario</label>
+				<input type="text" name="usuario" class="form-control form-control-lg" id="username" placeholder="Usuario">
+			</div>
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" name="contraseña" class="form-control form-control-lg" id="password" placeholder="Password">
+			</div>
+
+			<button type="reset" class="btn btn-default btn-lg">Borrar</button>
+			<button type="submit" class="btn btn-success btn-lg float-right">Registrarme</button>
+		</form>
+	</div>
+</div>
+{% endblock %}
+
+{% block content %} {% endblock %}

@@ -1,0 +1,12 @@
+
+
+EN LINUX
+======================================
+1) pararse en la raiz del proyecto
+2) ejecutar lo siguiente: 
+
+    export FLASK_APP=Presentacion
+    export FLASK_ENV=development
+    flask run
+
+3) Ya deberia estar corriendo el servidor

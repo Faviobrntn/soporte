@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block buscador %}
+<div class="jumbotron">
+	<div class="container">
+		<h1 class="display-3">{% block title %}Modificar Usuario{% endblock %}</h1>
+		<form method="post" action="usuarioModificado">
+			<input type="hidden" name="idpersona" value={{persona.idpersona}}>
+			<input type="hidden" name="usuario" value={{usuario.nombreUsuario}}>
+			<input type="hidden" name="contrasena" value={{usuario.contrasena}}>
+			<div class="form-group">
+				<label for="nombre">Nombre</label>
+				<input type="text" name="nombre" class="form-control form-control-lg" id="nombre" placeholder="Nombre" value="{{persona.nombre}}">
+			</div>
+			<div class="form-group">
+				<label for="apellido">Apellido</label>
+				<input type="text" name="apellido" class="form-control form-control-lg" id="apellido" placeholder="Apellido" value="{{persona.apellido}}">
+			</div>
+			<div class="form-group">
+				<label for="dni">DNI</label>
+				<input type="dni" name="dni" class="form-control form-control-lg" id="dni" placeholder="DNI" value="{{persona.dni}}">
+			</div>
+
+			<a href="javascript:history.back(-1);" title="Ir la página anterior">Volver</a>
+
+			<button type="submit" class="btn btn-success btn-lg float-right">Guardar Cambios</button>
+		</form>
+	</div>
+</div>
+{% endblock %}
+
+{% block content %} {% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% set estados = ["Visto", "Pendiente", "En proceso"] %}
+
+{% block content %}
+
+    <h1>{% block title %}Mis Shows{% endblock %}</h1>
+
+<div class="row">
+    <div class="col-2">
+        <div class="card"> 
+            <form id="filtro" action="filtrar" method="POST">
+                <div class="card-body">
+                    <h5 class="card-title">Filtrar por:</h5>
+                    <input type="hidden" name="tipo" id="tipo" value="{{tipo}}"/>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="show" id="vista" value="0">
+                        <label class="form-check-label" for="vista">
+                            Vistas
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="show" id="pendiente" value="1">
+                        <label class="form-check-label" for="pendiente">
+                            Pendiente
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="show" id="proceso" value="2">
+                        <label class="form-check-label" for="proceso">
+                            En proceso
+                        </label>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" name="filtrar" value="Filtrar" class="btn btn-info float-right">Filtrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if cantidad>0 %}
+    <div class="col-10">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Poster</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Puntuacion IMDB</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Puntuado por mi</th>
+                    <th scope="col">Puntuacion Sitio</th>
+                    <th scope="col" colspan="3">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for show in shows %}
+                <tr>
+                    <td><img class="poster" src="http://image.tmdb.org/t/p/w185//{{show.poster}}" ></td>
+                    <td>{{show.nombre}}</td>
+                    <td>{{show.overview[:120]}}...</td>
+                    <td>{{show.puntuacionIMDB}}</td>
+                    
+                    <td>{{ estados[show.estado] }}</td>
+
+                    <td>{%if show.puntuado==1%} Si {%else%} No  {%endif%} </td>
+
+                    {%if show.cantidadPuntuaciones>0%}
+                        <td>{{show.puntuacionUsuariosAcumulada/show.cantidadPuntuaciones}}</td>
+                    {%else%}
+                        <td>Sin puntuacion aun</td>
+                    {%endif%}
+
+                    <td>
+                        <a class="btn btn-primary" href="{{ url_for('detalles', id=show.idShow, tipo=show.tipo) }}">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <form method="POST" id="modificarShow" action="modificarPerShowForm">
+                            <input type="hidden" name="tipo" value="{{show.tipo}}" />
+                            <input type="hidden" name="idShow" value="{{show.idShow}}" />
+                            <button type="submit" class="btn btn-info"><i class="fa fa-pen"></i></button>
+                            <!-- <button type="submit" class="btn btn-danger" onclick="return confirm('Estas seguro?');"><i class="fas fa-trash"></i></button> -->
+                        </form>
+                    </td>
+                    <td>
+                        <form method="POST" action="eliminarShow">
+                            <input type="hidden" name="tipo" value="{{show.tipo}}" />
+                            <input type="hidden" name="idShow" value="{{show.idShow}}" />
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Estas seguro?');"><i class="fas fa-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                    {% if not loop.last %} {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

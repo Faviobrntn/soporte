@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block buscador %} {% endblock %}
+{% block content %}
+
+    <h1>{% block title %}Modificar Show{% endblock %}</h1>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <img class="card-img" src="https://image.tmdb.org/t/p/w600_and_h900_bestv2{{show.poster}}">
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ show.nombre }}</h5>
+                    <p class="card-text">
+                        <ul>
+                            <li><b>ID: </b>{{ show.idShow }}</li>
+                            <li><b>Título: </b>{{ show.nombre }}</li>
+                            <li><b>Título original: </b>{{ show.original_title }}</li>
+                            <li><b>Puntuación: </b>{{ show.puntuacionIMDB }} ({{ show.vote_count }} votos)</li>
+                            <li><b>Sinopsis: </b>{{ show.overview }}</li>
+                        </ul>
+                    </p>
+
+                    <form id="formModi" action="modiShow" method="POST">
+                        <input type="hidden" name="idShow" id="idShow" required="" value="{{show.idShow}}"/>
+                        <input type="hidden" name="tipo" id="tipo" required="" value="{{show.tipo}}"/>
+                        <div class="form-group">
+                            <label for="select-estado">Estado</label>
+                            <select name="estado" class="form-control" id="select-estado" required>
+                                <option value="0">Visto</option>
+                                <option value="2">En Proceso</option>
+                                <option value="1">Pendiente</option>
+                            </select>
+                        </div>
+
+                        {%if pershow.puntuado==0%}
+                        <div class="form-group">
+                            <label for="select-puntuacion">Puntuación</label>
+                            <select name="puntuacion" class="form-control" id="select-puntuacion" required>
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                        {%endif%}
+                        {% if show.cantidadPuntuaciones>0 %}
+                            <p class="card-text">Puntuacion de los usuarios del sitio:</p>
+                            <p class="card-text">{{show.puntuacionUsuariosAcumulada/show.cantidadPuntuaciones}}</p>
+                        {% else %}
+                            <p class="card-text">Sin puntuación aún</p>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary float-right">Guardar</button>
+<a href="javascript:history.back(-1);" title="Ir la página anterior">Volver</a>
+                    </form>
+                    <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

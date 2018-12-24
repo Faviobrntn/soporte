@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if var %}
+<script type="text/javascript">
+	alert("Usuario modificado correctamente");
+</script>
+{% endif %}
+{% if var1 %}
+<script type="text/javascript">
+	alert("Usuario dado de alta correctamente");
+</script>
+{% endif %}
+{% if var3 %}
+<script type="text/javascript">
+	alert("Show agregado correctamente");
+</script>
+{% endif %}
+<!-- 
+{% if session['idpersona'] %}
+<form id="form-buscar" action="resultados" method="post" autocomplete="off">
+					<fieldset>
+						<legend>Busqueda</legend>
+						<div class="formu"><p><label >Nombre:</label></p></div>
+						<div class="formu"><input name="nombre" type="text" id="nombre" autofocus="" required=""></p></div>
+                        <div class="radio"><label><input type="radio"  value="serie" name="show" required="" />Serie</label><label><input type="radio"  value="pelicula" name="show" />Pelicula</label></div>
+						<div class="botones" ><p id="Ingresar"><input type="submit" id="submit" name="submit" value="Buscar" class="boton"></p></div>
+					</fieldset>
+				</form>
+{% endif %} -->
+{% endblock %}
